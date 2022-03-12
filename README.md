@@ -1,15 +1,15 @@
 Philomath
 =========
 
-An LCF-style theorem prover written in ANSI C.
-
-It implements a Natural Deduction system with labelled assumptions.
-The rules of inference implement the intuitionistic propositional calculus.
+An LCF-style theorem prover written in ANSI C.  It implements a
+Natural Deduction system with labelled assumptions.  For more information
+on this approach, see [LCF-Style-ND](https://github.com/catseye/LCF-Style-ND).
+The supplied rules of inference implement the intuitionistic propositional calculus.
 
 How do I write a proof with this?
 ---------------------------------
 
-Create a file `eg/myproof.c`:
+Create a file `myproof.c`:
 
 ```c
 #include "formula.h"
@@ -19,13 +19,13 @@ int main(int argc, char **argv) {
 }
 ```
 
-Then compile this:
+Then compile and run it with:
 
-    ./build-proof eg/myproof
+    ./build-proof.sh myproof
 
 And run the resulting executable:
 
-    ./eg/myproof
+    ./myproof
 
 If the exit code is 0, the proof is valid!
 
@@ -44,9 +44,5 @@ Progress
 - [ ] abs_elim: if abs is proved, then anything is proved
 - [ ] neg_elim: if x is proved, and not x is proved, then absurdum is proved
 - [ ] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi
+- [ ] assert
 
-TODO
-----
-
-*   Demo proofs
-*   Cmd to build and run a demo proof
