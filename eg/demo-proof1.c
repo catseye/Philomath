@@ -1,6 +1,6 @@
 /*
  * Proof that
- *  (p → q) → ((q → r) → (p → r))
+ *  (p -> q) -> ((q -> r) -> (p -> r))
  */
 
 #include <stddef.h>

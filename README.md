@@ -44,5 +44,4 @@ Progress
 - [ ] abs_elim: if abs is proved, then anything is proved
 - [ ] neg_elim: if x is proved, and not x is proved, then absurdum is proved
 - [ ] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi
-- [ ] assert
-
+- [x] assert

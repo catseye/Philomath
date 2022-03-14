@@ -1,5 +1,6 @@
 #include <stdlib.h>
 
+#include "assert.h"
 #include "formula.h"
 #include "assumptions.h"
 #include "proof.h"
@@ -11,7 +12,8 @@ struct proof {
 
 struct proof *
 mk_proof(struct assumptions *assumptions, struct formula *conclusion) {
-    struct proof *p = malloc(sizeof(struct proof));
+    struct proof *p = (struct proof *)malloc(sizeof(struct proof));
+    assert(p != NULL);
     p->assumptions = assumptions;
     p->conclusion = conclusion;
     return p;

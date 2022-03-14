@@ -46,7 +46,7 @@ merge(struct assumptions *a, struct assumptions *b) {
     struct assumptions *c = NULL;
     struct formula *f;
 
-    while (k != NULL) {
+    for (k = a; k != NULL; k = k->next) {
         f = lookup(k->label, b);
         if (f == NULL || formula_eq(f, k->formula)) {
             c = assume(k->label, k->formula, c);
