@@ -6,6 +6,8 @@
 #include "assumptions.h"
 #include "proof.h"
 
+#define DEBUG 1
+
 struct proof {
     struct assumptions *assumptions;
     struct formula *conclusion;
@@ -15,7 +17,14 @@ struct proof *
 mk_proof(struct assumptions *assumptions, struct formula *conclusion) {
     struct proof *p = (struct proof *)malloc(sizeof(struct proof));
     assert(p != NULL, "mk_proof: could not allocate proof object");
+#ifdef DEBUG
+    fprintf(stdout, "-----------------------------------------\n");
+    fprintf(stdout, "Created proof of ");
+    formula_fprint(stdout, conclusion);
+    fprintf(stdout, " under assumptions:\n");
     assumptions_fprint(stdout, assumptions);
+    fprintf(stdout, "-----------------------------------------\n\n");
+#endif
     p->assumptions = assumptions;
     p->conclusion = conclusion;
     return p;
@@ -26,12 +35,16 @@ int proves(struct proof *p, struct formula *c) {
        a successful system exit code (i.e. 0) is returned, with
        which the process may exit. */
     assert(p->assumptions == NULL, "proves: proof contains undischarged assumptions");
+#ifdef DEBUG
     if (!formula_eq(p->conclusion, c)) {
-        formula_fprint(stdout, p->conclusion);
-        fprintf(stdout, "\n");
+        fprintf(stdout, "Claim:               ");
         formula_fprint(stdout, c);
         fprintf(stdout, "\n");
+        fprintf(stdout, "Conclusion of proof: ");
+        formula_fprint(stdout, p->conclusion);
+        fprintf(stdout, "\n");
     }
+#endif
     assert(formula_eq(p->conclusion, c), "proves: proof does not prove what is claimed");
     return 0;
 }
@@ -90,6 +103,15 @@ impl_elim(struct proof *p, struct proof *r) {
     /* If p is proved, and r (of the form p -> q) is proved, then q is proved. */
     assert(r->conclusion->type == IMPL, "impl_elim: not an implication");
     assert(formula_eq(r->conclusion->lhs, p->conclusion), "impl_elim: formula mismatch");
+#ifdef DEBUG
+    fprintf(stdout, "p->assumptions\n");
+    assumptions_fprint(stdout, p->assumptions);
+    fprintf(stdout, "r->assumptions\n");
+    assumptions_fprint(stdout, r->assumptions);
+    fprintf(stdout, "merged assumptions\n");
+    assumptions_fprint(stdout, merge(p->assumptions, r->assumptions));
+    fprintf(stdout, "\n\n");
+#endif
     return mk_proof(
         merge(p->assumptions, r->assumptions),
         r->conclusion->rhs
