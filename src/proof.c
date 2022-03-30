@@ -101,15 +101,6 @@ impl_elim(struct proof *p, struct proof *r) {
     /* If p is proved, and r (of the form p -> q) is proved, then q is proved. */
     assert(r->conclusion->type == IMPL, "impl_elim: not an implication");
     assert(formula_eq(r->conclusion->lhs, p->conclusion), "impl_elim: formula mismatch");
-#ifdef DEBUG
-    fprintf(stdout, "p->assumptions\n");
-    assumptions_fprint(stdout, p->assumptions);
-    fprintf(stdout, "r->assumptions\n");
-    assumptions_fprint(stdout, r->assumptions);
-    fprintf(stdout, "merged assumptions\n");
-    assumptions_fprint(stdout, merge(p->assumptions, r->assumptions));
-    fprintf(stdout, "\n\n");
-#endif
     return mk_proof(
         merge(p->assumptions, r->assumptions),
         r->conclusion->rhs
