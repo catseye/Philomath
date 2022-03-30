@@ -3,7 +3,7 @@
 #ifndef FORMULA_H
 #define FORMULA_H 1
 
-#include <stdio.h>
+#include <stdio.h>  /* for definition of FILE only */
 
 #define VAR  0
 #define CONJ 1

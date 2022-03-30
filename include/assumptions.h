@@ -16,4 +16,6 @@ struct formula *lookup(int, struct assumptions *);
 struct assumptions *discharge(int, struct assumptions *);
 struct assumptions *merge(struct assumptions *, struct assumptions *);
 
+void assumptions_fprint(FILE *, struct assumptions *);
+
 #endif /* ndef ASSUMPTIONS_H */

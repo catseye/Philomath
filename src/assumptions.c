@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "formula.h"
 #include "assumptions.h"
@@ -57,4 +57,17 @@ merge(struct assumptions *a, struct assumptions *b) {
     }
 
     return c;
+}
+
+void
+assumptions_fprint(FILE *f, struct assumptions *a) {
+    struct assumptions *k = a;
+
+    fprintf(f, "Begin.\n");
+    for (k = a; k != NULL; k = k->next) {
+        fprintf(f, "(%d) ", k->label);
+        formula_fprint(f, k->formula);
+        fprintf(f, "\n");
+    }
+    fprintf(f, "End.\n");
 }

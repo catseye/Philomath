@@ -15,6 +15,7 @@ struct proof *
 mk_proof(struct assumptions *assumptions, struct formula *conclusion) {
     struct proof *p = (struct proof *)malloc(sizeof(struct proof));
     assert(p != NULL, "mk_proof: could not allocate proof object");
+    assumptions_fprint(stdout, assumptions);
     p->assumptions = assumptions;
     p->conclusion = conclusion;
     return p;
@@ -77,6 +78,7 @@ impl_intro(int label, struct proof *q) {
     /* If q is proved under the assumption p, then p -> q is proved. */
     struct formula *f = lookup(label, q->assumptions);
     struct assumptions *a = discharge(label, q->assumptions);
+    assert(f != NULL, "impl_intro: label not found in assumptions");
     return mk_proof(
         a,
         impl(f, q->conclusion)
