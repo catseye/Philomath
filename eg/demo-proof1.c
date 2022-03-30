@@ -3,12 +3,11 @@
  *  (p -> q) -> ((q -> r) -> (p -> r))
  */
 
-#include <stddef.h>
 #include "formula.h"
 #include "proof.h"
 
 int main(int argc, char **argv) {
-    return (
+    return proves(
         impl_intro(
             3,
             impl_intro(
@@ -24,6 +23,7 @@ int main(int argc, char **argv) {
                     )
                 )
             )
-        )
-    ) != NULL;
+        ),
+        impl(impl(var("p"), var("q")), impl(impl(var("q"), var("r")), impl(var("p"), var("r"))))
+    );
 }

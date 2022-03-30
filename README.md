@@ -50,7 +50,7 @@ Progress
 --------
 
 - [x] assert()
-- [ ] proves()
+- [x] proves()
 
 - [x] impl_intro
 - [x] demo proof showing impl_intro

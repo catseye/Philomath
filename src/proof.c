@@ -19,6 +19,15 @@ mk_proof(struct assumptions *assumptions, struct formula *conclusion) {
     return p;
 }
 
+int proves(struct proof *p, struct formula *c) {
+    /* Asserts that the proof p proves the formula c.  If it does,
+       a successful system exit code (i.e. 0) is returned, with
+       which the process may exit. */
+    assert(p->assumptions == NULL);
+    assert(formula_eq(p->conclusion, c));
+    return 0;
+}
+
 struct proof *
 suppose(struct formula *formula, int label) {
     return mk_proof(

@@ -7,6 +7,8 @@
 
 struct proof;
 
+int proves(struct proof *, struct formula *);
+
 struct proof *suppose(struct formula *, int);
 
 struct proof *conj_intro(struct proof *, struct proof *);

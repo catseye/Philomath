@@ -42,6 +42,9 @@ formula_eq(struct formula *a, struct formula *b) {
     if (a == NULL && b == NULL) {
         return 1;
     }
+    if (a == NULL || b == NULL) {
+        return 0;
+    }
     if (a->type != b->type) {
         return 0;
     }
