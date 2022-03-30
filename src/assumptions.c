@@ -46,13 +46,23 @@ merge(struct assumptions *a, struct assumptions *b) {
     struct assumptions *c = NULL;
     struct formula *f;
 
+    /* First, put everything from `a` into the common assumptions `c`. */
     for (k = a; k != NULL; k = k->next) {
-        f = lookup(k->label, b);
-        if (f == NULL || formula_eq(f, k->formula)) {
-            c = assume(k->label, k->formula, c);
+        c = assume(k->label, k->formula, c);
+    }
+
+    /* Next, for everything in `b`, check if it is already in `c`.
+       If it is, assert that it is consistent.  If not in `c`, add it. */
+    for (k = b; k != NULL; k = k->next) {
+        f = lookup(k->label, c);
+        if (f != NULL) {
+            if (!formula_eq(f, k->formula)) {
+                /* TODO: change to assert() */
+                fprintf(stderr, "Inconsistent assumptions with same label (%d)", k->label);
+                exit(1);
+            }
         } else {
-            fprintf(stderr, "Inconsistent assumptions with same label (%d)", k->label);
-            exit(1);
+            c = assume(k->label, k->formula, c);
         }
     }
 

@@ -6,8 +6,6 @@
 #include "assumptions.h"
 #include "proof.h"
 
-#define DEBUG 1
-
 struct proof {
     struct assumptions *assumptions;
     struct formula *conclusion;
