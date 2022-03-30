@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "formula.h"
@@ -58,4 +59,29 @@ formula_eq(struct formula *a, struct formula *b) {
         return formula_eq(a->rhs, b->rhs);
     }
     return 0;
+}
+
+void
+formula_fprint(FILE *f, struct formula *a) {
+    if (a == NULL) {
+        fprintf(f, "(null)");
+    } else if (a->type == VAR) {
+        fprintf(f, "%s", a->name);
+    } else if (a->type == CONJ || a->type == DISJ || a->type == IMPL) {
+        fprintf(f, "(");
+        formula_fprint(f, a->lhs);
+        if (a->type == CONJ) {
+            fprintf(f, " /\\ ");
+        } else if (a->type == DISJ) {
+            fprintf(f, " \\/ ");
+        } else if (a->type == IMPL) {
+            fprintf(f, " -> ");
+        }
+        formula_fprint(f, a->rhs);
+        fprintf(f, ")");
+    } else if (a->type == NEG) {
+        fprintf(f, "!(");
+        formula_fprint(f, a->rhs);
+        fprintf(f, ")");
+    }
 }

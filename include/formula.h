@@ -3,6 +3,8 @@
 #ifndef FORMULA_H
 #define FORMULA_H 1
 
+#include <stdio.h>
+
 #define VAR  0
 #define CONJ 1
 #define DISJ 2
@@ -23,5 +25,7 @@ struct formula *impl(struct formula *, struct formula *);
 struct formula *neg(struct formula *);
 
 int formula_eq(struct formula *, struct formula *);
+
+void formula_fprint(FILE *, struct formula *);
 
 #endif /* ndef FORMULA_H */

@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "assert.h"
@@ -24,6 +25,12 @@ int proves(struct proof *p, struct formula *c) {
        a successful system exit code (i.e. 0) is returned, with
        which the process may exit. */
     assert(p->assumptions == NULL, "proves: proof contains undischarged assumptions");
+    if (!formula_eq(p->conclusion, c)) {
+        formula_fprint(stdout, p->conclusion);
+        fprintf(stdout, "\n");
+        formula_fprint(stdout, c);
+        fprintf(stdout, "\n");
+    }
     assert(formula_eq(p->conclusion, c), "proves: proof does not prove what is claimed");
     return 0;
 }
