@@ -13,7 +13,7 @@ struct proof {
 struct proof *
 mk_proof(struct assumptions *assumptions, struct formula *conclusion) {
     struct proof *p = (struct proof *)malloc(sizeof(struct proof));
-    assert(p != NULL);
+    assert(p != NULL, "mk_proof: could not allocate proof object");
     p->assumptions = assumptions;
     p->conclusion = conclusion;
     return p;
@@ -23,8 +23,8 @@ int proves(struct proof *p, struct formula *c) {
     /* Asserts that the proof p proves the formula c.  If it does,
        a successful system exit code (i.e. 0) is returned, with
        which the process may exit. */
-    assert(p->assumptions == NULL);
-    assert(formula_eq(p->conclusion, c));
+    assert(p->assumptions == NULL, "proves: proof contains undischarged assumptions");
+    assert(formula_eq(p->conclusion, c), "proves: proof does not prove what is claimed");
     return 0;
 }
 
@@ -48,7 +48,7 @@ conj_intro(struct proof *p, struct proof *q) {
 struct proof *
 conj_elim_lhs(struct proof *r) {
     /* If r (of the form p & q) is proved, then p is proved. */
-    assert(r->conclusion->type == CONJ);
+    assert(r->conclusion->type == CONJ, "conj_elim_lhs: not a conjunction");
     return mk_proof(
         r->assumptions,
         r->conclusion->lhs
@@ -58,7 +58,7 @@ conj_elim_lhs(struct proof *r) {
 struct proof *
 conj_elim_rhs(struct proof *r) {
     /* If r (of the form p & q) is proved, then q is proved. */
-    assert(r->conclusion->type == CONJ);
+    assert(r->conclusion->type == CONJ, "conj_elim_rhs: not a conjunction");
     return mk_proof(
         r->assumptions,
         r->conclusion->rhs
@@ -79,8 +79,8 @@ impl_intro(int label, struct proof *q) {
 struct proof *
 impl_elim(struct proof *p, struct proof *r) {
     /* If p is proved, and r (of the form p -> q) is proved, then q is proved. */
-    assert(r->conclusion->type == IMPL);
-    assert(formula_eq(r->conclusion->lhs, p->conclusion));
+    assert(r->conclusion->type == IMPL, "impl_elim: not an implication");
+    assert(formula_eq(r->conclusion->lhs, p->conclusion), "impl_elim: formula mismatch");
     return mk_proof(
         merge(p->assumptions, r->assumptions),
         r->conclusion->rhs
@@ -113,7 +113,7 @@ disj_elim(struct proof *r, struct proof *s, int label1, struct proof *t, int lab
     struct formula *f1, *f2;
     struct assumptions *a_s, *a_t;
 
-    assert(r->conclusion->type == DISJ);
+    assert(r->conclusion->type == DISJ, "disj_elim: not a disjunction");
 
     f1 = lookup(label1, s->assumptions);
     a_s = discharge(label2, s->assumptions);
@@ -121,9 +121,9 @@ disj_elim(struct proof *r, struct proof *s, int label1, struct proof *t, int lab
     f2 = lookup(label2, t->assumptions);
     a_t = discharge(label2, t->assumptions);
 
-    assert(formula_eq(s->conclusion, t->conclusion));
-    assert(formula_eq(r->conclusion->lhs, f1));
-    assert(formula_eq(r->conclusion->rhs, f2));
+    assert(formula_eq(s->conclusion, t->conclusion), "disj_elim: mismatched conclusions");
+    assert(formula_eq(r->conclusion->lhs, f1), "disj_elim: mismatched assumption on lhs");
+    assert(formula_eq(r->conclusion->rhs, f2), "disj_elim: mismatched assumption on rhs");
 
     return mk_proof(
         merge(r->assumptions, merge(a_s, a_t)),
