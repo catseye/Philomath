@@ -15,7 +15,11 @@ Create a file `myproof.c`:
 #include "formula.h"
 #include "proof.h"
 int main(int argc, char **argv) {
-    ...
+    /* Proof of p -> p */
+    return proves(
+        impl_intro(1, suppose(var("p"), 1)),
+        impl(var("p"), var("p"))
+    )
 }
 ```
 
@@ -25,7 +29,7 @@ Then compile and run it with:
 
 And run the resulting executable:
 
-    ./myproof
+    ./myproof.exe
 
 If the exit code is 0, the proof is valid!
 
@@ -35,16 +39,16 @@ If the exit code is 0, the proof is valid!
 Limitations
 -----------
 
-LCF-style theorem proving relies on data abstraction, that is, information hiding.
+LCF-style theorem proving relies on data abstraction, i.e. information hiding.
 In C, information hiding is accomplished by exposing, in a header file, only the
 fact that a struct exists, and *not* exposing its structure.  Client code can then
-work with
+work with pointers to that struct without knowing what's contained in it.
 
-It is however possible to subvert this mechanism.  If your proof code does any of#
+It is however possible to subvert this mechanism.  If your proof code does any of
 the following things, it is possible it is no longer a valid proof:
 
 *   includes `proof.c` rather than `proof.h`
-*   casts a `struct proof` value to some other type
+*   typecasts a `struct proof` value to some other type
 
 Progress
 --------
@@ -58,14 +62,17 @@ Progress
 - [x] demo proof showing impl_elim
 
 - [x] conj_intro
-- [ ] demo proof showing conj_intro
+- [x] demo proof showing conj_intro
 - [x] conj_elim
-- [ ] demo proof showing conj_elim
+- [x] demo proof showing conj_elim
 
 - [x] disj_intro
 - [ ] demo proof showing disj_intro
 - [x] disj_elim
 - [ ] demo proof showing disj_elim
+
+- [ ] demo bad proof (ought to really be a number of these)
+- [ ] debug flag for (or debug version of) `build-proof.sh`
 
 - [ ] Absurdum value
 - [ ] abs_elim: if abs is proved, then anything is proved
@@ -74,3 +81,4 @@ Progress
 - [ ] demo proof showing neg_elim
 - [ ] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi
 - [ ] demo proof showing neg_intro
+- [ ] (is neg_intro really part of IPL? is that not proof by contradiction?)

@@ -3,4 +3,4 @@
 ./build.sh
 PROOF=$1
 CC="gcc -ansi -pedantic"
-${CC} -Iinclude $PROOF.c src/*.o -o $PROOF
+${CC} -Iinclude $PROOF.c src/*.o -o $PROOF.exe
