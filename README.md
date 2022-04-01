@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     return proves(
         impl_intro(1, suppose(var("p"), 1)),
         impl(var("p"), var("p"))
-    )
+    );
 }
 ```
 
@@ -41,14 +41,18 @@ Limitations
 
 LCF-style theorem proving relies on data abstraction, i.e. information hiding.
 In C, information hiding is accomplished by exposing, in a header file, only the
-fact that a struct exists, and *not* exposing its structure.  Client code can then
-work with pointers to that struct without knowing what's contained in it.
+fact that a `struct` exists, and *not* exposing its structure.  Client code can then
+work with pointers to that `struct` without knowing what's contained in it.
 
 It is however possible to subvert this mechanism.  If your proof code does any of
 the following things, it is possible it is no longer a valid proof:
 
-*   includes `proof.c` rather than `proof.h`
-*   typecasts a `struct proof` value to some other type
+*   includes the file `proof.c` directly, rather than including `proof.h`
+*   casts a `struct proof` value to some other type
+*   casts a value of some other type to a `struct proof`
+
+Fortunately, it is possible to statically analyze a C source file and confirm
+that it does none of these things, if such a level of assurance is desired.
 
 Progress
 --------
