@@ -4,7 +4,7 @@ philomath
 **philomath** is an LCF-style theorem prover written in ANSI C.  It implements
 intuitionistic propositional logic inside a Natural Deduction system with
 labelled assumptions.  For more information on this approach, see
-[LCF-Style-ND](https://github.com/catseye/LCF-Style-ND).
+[LCF-Style-ND](https://github.com/cpressey/LCF-Style-ND).
 
 How do I write a proof with this?
 ---------------------------------
