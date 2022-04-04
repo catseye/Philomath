@@ -1,10 +1,10 @@
-philomath
+Philomath
 =========
 
-**philomath** is an LCF-style theorem prover written in ANSI C.  It implements
+**Philomath** is an LCF-style theorem prover written in ANSI C.  It implements
 intuitionistic propositional logic inside a Natural Deduction system with
 labelled assumptions.  For more information on this approach, see
-[LCF-Style-ND](https://github.com/cpressey/LCF-Style-ND).
+[LCF-style-ND](https://github.com/cpressey/LCF-style-ND).
 
 How do I write a proof with this?
 ---------------------------------
@@ -71,9 +71,9 @@ Progress
 - [x] demo proof showing conj_elim
 
 - [x] disj_intro
-- [ ] demo proof showing disj_intro
+- [x] demo proof showing disj_intro
 - [x] disj_elim
-- [ ] demo proof showing disj_elim
+- [x] demo proof showing disj_elim
 
 - [ ] demo bad proof (ought to really be a number of these)
 - [ ] debug flag for (or debug version of) `build-proof.sh`

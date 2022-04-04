@@ -136,7 +136,7 @@ disj_elim(struct proof *r, struct proof *s, int label1, struct proof *t, int lab
     assert(r->conclusion->type == DISJ, "disj_elim: not a disjunction");
 
     f1 = lookup(label1, s->assumptions);
-    a_s = discharge(label2, s->assumptions);
+    a_s = discharge(label1, s->assumptions);
 
     f2 = lookup(label2, t->assumptions);
     a_t = discharge(label2, t->assumptions);
