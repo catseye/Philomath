@@ -160,3 +160,14 @@ absr_elim(struct proof *r, struct formula *q)
         q
     );
 }
+
+struct proof *
+neg_elim(struct proof *p, struct proof *q)
+{
+    assert(q->conclusion->type == NEG, "neg_elim: not a negation");
+    assert(formula_eq(p->conclusion, q->conclusion->lhs), "neg_elim: mismatched conclusions");
+    return mk_proof(
+        merge(p->assumptions, q->assumptions),
+        absr()
+    );
+}

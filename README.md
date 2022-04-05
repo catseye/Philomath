@@ -83,7 +83,7 @@ Progress
 - [x] Absurdum value
 - [x] absr_elim: if absurdum is proved, then anything is proved (absr |- phi)
 - [ ] demo proof showing absr_elim
-- [ ] neg_elim: if x is proved, and not x is proved, then absurdum is proved (phi, not phi |- absr)
+- [x] neg_elim: if x is proved, and not x is proved, then absurdum is proved (phi, not phi |- absr)
 - [ ] demo proof showing neg_elim
 - [ ] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi (gamma |- not phi, discharging gamma, phi)
 - [ ] demo proof showing neg_intro
