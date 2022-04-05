@@ -2,9 +2,9 @@ Philomath
 =========
 
 **Philomath** is an LCF-style theorem prover written in ANSI C.  It implements
-intuitionistic propositional logic inside a Natural Deduction system with
-labelled assumptions.  For more information on this approach, see
-[LCF-style-ND](https://github.com/cpressey/LCF-style-ND).
+[intuitionistic propositional logic] inside a [Natural Deduction] system with
+labelled assumptions.  For more information on this approach, see the
+**[LCF-style-ND](https://github.com/cpressey/LCF-style-ND)** repository.
 
 How do I write a proof with this?
 ---------------------------------
@@ -78,11 +78,15 @@ Progress
 - [ ] demo bad proof (ought to really be a number of these)
 - [ ] debug flag for (or debug version of) `build-proof.sh`
 
+- [ ] Use names of greek letters for arguments to the functions
+
 - [ ] Absurdum value
-- [ ] abs_elim: if abs is proved, then anything is proved
+- [ ] abs_elim: if abs is proved, then anything is proved (abs |- phi)
 - [ ] demo proof showing abs_elim
-- [ ] neg_elim: if x is proved, and not x is proved, then absurdum is proved
+- [ ] neg_elim: if x is proved, and not x is proved, then absurdum is proved (phi, not phi |- abs)
 - [ ] demo proof showing neg_elim
-- [ ] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi
+- [ ] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi (gamma |- not phi, discharging gamma, phi)
 - [ ] demo proof showing neg_intro
-- [ ] (is neg_intro really part of IPL? is that not proof by contradiction?)
+
+[intuitionistic propositional logic]: https://iep.utm.edu/natural-deduction/#H4
+[Natural Deduction]: https://iep.utm.edu/natural-deduction/
