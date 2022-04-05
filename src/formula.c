@@ -38,6 +38,11 @@ neg(struct formula *rhs) {
     return mk_formula(NEG, NULL, NULL, rhs);
 }
 
+struct formula *
+absr(void) {
+    return mk_formula(ABSR, NULL, NULL, NULL);
+}
+
 int
 formula_eq(struct formula *a, struct formula *b) {
     if (a == NULL && b == NULL) {
@@ -48,6 +53,9 @@ formula_eq(struct formula *a, struct formula *b) {
     }
     if (a->type != b->type) {
         return 0;
+    }
+    if (a->type == ABSR) {
+        return 1;
     }
     if (a->type == VAR && !strcmp(a->name, b->name)) {
         return 1;
@@ -83,5 +91,7 @@ formula_fprint(FILE *f, struct formula *a) {
         fprintf(f, "!(");
         formula_fprint(f, a->rhs);
         fprintf(f, ")");
+    } else if (a->type == ABSR) {
+        fprintf(f, "_|_");
     }
 }

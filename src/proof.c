@@ -150,3 +150,13 @@ disj_elim(struct proof *r, struct proof *s, int label1, struct proof *t, int lab
         s->conclusion
     );
 }
+
+struct proof *
+absr_elim(struct proof *r, struct formula *q)
+{
+    assert(r->conclusion->type == ABSR, "absr_elim: not absurdum");
+    return mk_proof(
+        r->assumptions,
+        q
+    );
+}
