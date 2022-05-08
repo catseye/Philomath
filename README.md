@@ -75,7 +75,7 @@ Progress
 - [x] disj_elim
 - [x] demo proof showing disj_elim
 
-- [ ] demo bad proof (ought to really be a number of these)
+- [x] demo bad proof (ought to really be a number of these)
 - [ ] debug flag for (or debug version of) `build-proof.sh`
 
 - [ ] Use names of greek letters for arguments to the functions
