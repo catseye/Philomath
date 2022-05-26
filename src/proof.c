@@ -89,6 +89,13 @@ impl_intro(int label, struct proof *q) {
     /* If q is proved under the assumption p, then p -> q is proved. */
     struct formula *f = lookup(label, q->assumptions);
     struct assumptions *a = discharge(label, q->assumptions);
+#ifdef DEBUG
+    if (f == NULL) {
+        fprintf(stdout, "Label %d not found in:", label);
+        assumptions_fprint(stdout, a);
+        fprintf(stdout, "\n");
+    }
+#endif
     assert(f != NULL, "impl_intro: label not found in assumptions");
     return mk_proof(
         a,
@@ -165,7 +172,7 @@ struct proof *
 neg_elim(struct proof *p, struct proof *q)
 {
     assert(q->conclusion->type == NEG, "neg_elim: not a negation");
-    assert(formula_eq(p->conclusion, q->conclusion->lhs), "neg_elim: mismatched conclusions");
+    assert(formula_eq(p->conclusion, q->conclusion->rhs), "neg_elim: mismatched conclusions");
     return mk_proof(
         merge(p->assumptions, q->assumptions),
         absr()

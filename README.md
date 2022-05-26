@@ -36,6 +36,10 @@ If the exit code is 0, the proof is valid!
     % echo $?
     0
 
+If you wish to build the proof with debugging output, you can pass the `-D` flag:
+
+    ./build-proof.sh -D myproof
+
 Limitations
 -----------
 
@@ -76,7 +80,7 @@ Progress
 - [x] demo proof showing disj_elim
 
 - [x] demo bad proof (ought to really be a number of these)
-- [ ] debug flag for (or debug version of) `build-proof.sh`
+- [x] debug flag for (or debug version of) `build-proof.sh`
 
 - [ ] Use names of greek letters for arguments to the functions
 
