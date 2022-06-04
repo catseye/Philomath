@@ -1,20 +1,11 @@
 /*
- * INCOMPLETE Proof that
+ * Proof that
  *  ~p \/ q -> (p -> q)
- */
-
-/*
- * Suppose ~p \/ q (1)
- * Now, suppose ~p (2)
- * Further, suppose p (3)
- * So bottom, by neg_elim
- * Hence q, by absr_elim
- * Hence, p -> q by (3)
- * Now, suppose q (4)
- * Further, suppose p (5)
- * Hence, p -> q by (5) -- FIXME
- * So, p -> q by disj_elim with (2), (4)
- * So, ~p \/ q -> (p -> q) by (1)
+ *
+ * Note that step9 and stepA together simulate a "copy" or
+ * "reiteration", where we "import" a proof step (in this
+ * case, q) into an assumption we made elsewhere (in this
+ * case, p).
  */
 
 #include "formula.h"
@@ -29,12 +20,13 @@ int main(int argc, char **argv) {
     struct proof *step6 = impl_intro(3, step5);                       /* Hence, p -> q by (3) */
     struct proof *step7 = suppose(var("q"), 4);                       /* Now, suppose q (4) */
     struct proof *step8 = suppose(var("p"), 5);                       /* Further, suppose p (5) */
-    struct proof *step9 = impl_intro(5, step8);                       /* Hence, p -> q by (5) */
-    /* ... TODO ... */                                                /* So, p -> q by disj_elim with (2), (4) */
-    /* ... TODO ... */                                                /* So, ~p \/ q -> (p -> q) by (1) */
-
+    struct proof *step9 = conj_intro(step7, step8);                   /* So q /\ p, by conj_intro */
+    struct proof *stepA = conj_elim_lhs(step9);                       /* So q (under (5)), by conj_elim */
+    struct proof *stepB = impl_intro(5, stepA);                       /* Hence, p -> q by (5) */
+    struct proof *stepC = disj_elim(step1, step6, 2, stepB, 4);       /* So, p -> q by disj_elim with (2), (4) */
+    struct proof *stepD = impl_intro(1, stepC);                       /* So, ~p \/ q -> (p -> q) by (1) */
     return proves(
-        step1,
+        stepD,
         impl(disj(neg(var("p")), var("q")), impl(var("p"), var("q")))
     );
 }
