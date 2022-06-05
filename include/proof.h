@@ -25,7 +25,9 @@ struct proof *disj_elim(struct proof *, struct proof *, int, struct proof *, int
 struct proof *conj_elim_lhs(struct proof *);
 struct proof *conj_elim_rhs(struct proof *);
 
-struct proof *absr_elim(struct proof *, struct formula *);
+struct proof *neg_intro(int, struct proof *);
 struct proof *neg_elim(struct proof *, struct proof *);
+
+struct proof *absr_elim(struct proof *, struct formula *);
 
 #endif /* ndef PROOF_H */

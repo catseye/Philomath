@@ -89,8 +89,11 @@ Progress
 - [x] demo proof showing absr_elim
 - [x] neg_elim: if x is proved, and not x is proved, then absurdum is proved (phi, not phi |- absr)
 - [x] demo proof showing neg_elim
-- [ ] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi (gamma |- not phi, discharging gamma, phi)
+- [x] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi (gamma |- not phi, discharging gamma, phi)
 - [ ] demo proof showing neg_intro
+
+- [ ] double_neg_elim (for to support classical logic)
+- [ ] demo proof showing double_neg_elim
 
 [intuitionistic propositional logic]: https://iep.utm.edu/natural-deduction/#H4
 [Natural Deduction]: https://iep.utm.edu/natural-deduction/

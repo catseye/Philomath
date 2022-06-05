@@ -159,12 +159,23 @@ disj_elim(struct proof *r, struct proof *s, int label1, struct proof *t, int lab
 }
 
 struct proof *
-absr_elim(struct proof *r, struct formula *q)
+neg_intro(int label, struct proof *p)
 {
-    assert(r->conclusion->type == ABSR, "absr_elim: not absurdum");
+    /* If absurdum is proved under the assumption q, then not-q is proved. */
+    struct formula *f = lookup(label, p->assumptions);
+    struct assumptions *a = discharge(label, p->assumptions);
+    assert(p->conclusion->type == ABSR, "neg_intro: not absurdum");
+#ifdef DEBUG
+    if (f == NULL) {
+        fprintf(stdout, "Label %d not found in:", label);
+        assumptions_fprint(stdout, a);
+        fprintf(stdout, "\n");
+    }
+#endif
+    assert(f != NULL, "neg_intro: label not found in assumptions");
     return mk_proof(
-        r->assumptions,
-        q
+        a,
+        neg(f)
     );
 }
 
@@ -176,5 +187,15 @@ neg_elim(struct proof *p, struct proof *q)
     return mk_proof(
         merge(p->assumptions, q->assumptions),
         absr()
+    );
+}
+
+struct proof *
+absr_elim(struct proof *r, struct formula *q)
+{
+    assert(r->conclusion->type == ABSR, "absr_elim: not absurdum");
+    return mk_proof(
+        r->assumptions,
+        q
     );
 }
