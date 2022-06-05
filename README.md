@@ -1,6 +1,12 @@
 Philomath
 =========
 
+_See also:_ [LCF-style-ND](https://github.com/cpressey/LCF-style-ND#readme)
+∘ [Maxixe](https://github.com/catseye/Maxixe#readme)
+∘ [Cardboard Prolog](https://github.com/catseye/Cardboard-Prolog#readme)
+
+- - - -
+
 **Philomath** is an LCF-style theorem prover written in ANSI C.  It implements
 [classical propositional logic] inside a [Natural Deduction] system with
 labelled assumptions.  For more information on this approach, see the
