@@ -29,5 +29,6 @@ struct proof *neg_intro(int, struct proof *);
 struct proof *neg_elim(struct proof *, struct proof *);
 
 struct proof *absr_elim(struct proof *, struct formula *);
+struct proof *double_neg_elim(struct proof *);
 
 #endif /* ndef PROOF_H */

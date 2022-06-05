@@ -199,3 +199,14 @@ absr_elim(struct proof *r, struct formula *q)
         q
     );
 }
+
+struct proof *
+double_neg_elim(struct proof *x)
+{
+    assert(x->conclusion->type == NEG, "double_neg_elim: not a negation");
+    assert(x->conclusion->rhs->type == NEG, "double_neg_elim: not a double negation");
+    return mk_proof(
+        x->assumptions,
+        x->conclusion->rhs->rhs
+    );
+}

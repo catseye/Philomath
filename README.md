@@ -2,7 +2,7 @@ Philomath
 =========
 
 **Philomath** is an LCF-style theorem prover written in ANSI C.  It implements
-[intuitionistic propositional logic] inside a [Natural Deduction] system with
+[classical propositional logic] inside a [Natural Deduction] system with
 labelled assumptions.  For more information on this approach, see the
 **[LCF-style-ND](https://github.com/cpressey/LCF-style-ND)** repository.
 
@@ -82,7 +82,7 @@ Progress
 - [x] demo bad proof (ought to really be a number of these)
 - [x] debug flag for (or debug version of) `build-proof.sh`
 
-- [ ] Use names of greek letters for arguments to the functions
+- [ ] Use some names other than p, q, etc for struct proof type args
 
 - [x] Absurdum value
 - [x] absr_elim: if absurdum is proved, then anything is proved (absr |- phi)
@@ -90,10 +90,10 @@ Progress
 - [x] neg_elim: if x is proved, and not x is proved, then absurdum is proved (phi, not phi |- absr)
 - [x] demo proof showing neg_elim
 - [x] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi (gamma |- not phi, discharging gamma, phi)
-- [ ] demo proof showing neg_intro
+- [x] demo proof showing neg_intro
 
-- [ ] double_neg_elim (for to support classical logic)
-- [ ] demo proof showing double_neg_elim
+- [x] double_neg_elim (for to support classical logic)
+- [x] demo proof showing double_neg_elim
 
-[intuitionistic propositional logic]: https://iep.utm.edu/natural-deduction/#H4
+[classical propositional logic]: https://iep.utm.edu/natural-deduction/#H4
 [Natural Deduction]: https://iep.utm.edu/natural-deduction/
