@@ -56,39 +56,39 @@ suppose(struct formula *formula, int label) {
 }
 
 struct proof *
-conj_intro(struct proof *p, struct proof *q) {
-    /* If p is proved, and q is proved, then p & q is proved. */
+conj_intro(struct proof *x, struct proof *y) {
+    /* If x is proved, and y is proved, then x & y is proved. */
     return mk_proof(
-        merge(p->assumptions, q->assumptions),
-        conj(p->conclusion, q->conclusion)
+        merge(x->assumptions, y->assumptions),
+        conj(x->conclusion, y->conclusion)
     );
 }
 
 struct proof *
-conj_elim_lhs(struct proof *r) {
-    /* If r (of the form p & q) is proved, then p is proved. */
-    assert(r->conclusion->type == CONJ, "conj_elim_lhs: not a conjunction");
+conj_elim_lhs(struct proof *x) {
+    /* If x (of the form y & z) is proved, then y is proved. */
+    assert(x->conclusion->type == CONJ, "conj_elim_lhs: not a conjunction");
     return mk_proof(
-        r->assumptions,
-        r->conclusion->lhs
+        x->assumptions,
+        x->conclusion->lhs
     );
 }
 
 struct proof *
-conj_elim_rhs(struct proof *r) {
-    /* If r (of the form p & q) is proved, then q is proved. */
-    assert(r->conclusion->type == CONJ, "conj_elim_rhs: not a conjunction");
+conj_elim_rhs(struct proof *x) {
+    /* If x (of the form y & z) is proved, then z is proved. */
+    assert(x->conclusion->type == CONJ, "conj_elim_rhs: not a conjunction");
     return mk_proof(
-        r->assumptions,
-        r->conclusion->rhs
+        x->assumptions,
+        x->conclusion->rhs
     );
 }
 
 struct proof *
-impl_intro(int label, struct proof *q) {
-    /* If q is proved under the assumption p, then p -> q is proved. */
-    struct formula *f = lookup(label, q->assumptions);
-    struct assumptions *a = discharge(label, q->assumptions);
+impl_intro(int label, struct proof *y) {
+    /* If y is proved under the assumption x, then x -> y is proved. */
+    struct formula *f = lookup(label, y->assumptions);
+    struct assumptions *a = discharge(label, y->assumptions);
 #ifdef DEBUG
     if (f == NULL) {
         fprintf(stdout, "Label %d not found in:", label);
@@ -99,72 +99,72 @@ impl_intro(int label, struct proof *q) {
     assert(f != NULL, "impl_intro: label not found in assumptions");
     return mk_proof(
         a,
-        impl(f, q->conclusion)
+        impl(f, y->conclusion)
     );
 }
 
 struct proof *
-impl_elim(struct proof *p, struct proof *r) {
-    /* If p is proved, and r (of the form p -> q) is proved, then q is proved. */
-    assert(r->conclusion->type == IMPL, "impl_elim: not an implication");
-    assert(formula_eq(r->conclusion->lhs, p->conclusion), "impl_elim: formula mismatch");
+impl_elim(struct proof *x, struct proof *y) {
+    /* If x is proved, and y (of the form x -> z) is proved, then z is proved. */
+    assert(y->conclusion->type == IMPL, "impl_elim: not an implication");
+    assert(formula_eq(y->conclusion->lhs, x->conclusion), "impl_elim: formula mismatch");
     return mk_proof(
-        merge(p->assumptions, r->assumptions),
-        r->conclusion->rhs
+        merge(x->assumptions, y->assumptions),
+        y->conclusion->rhs
     );
 }
 
 struct proof *
-disj_intro_lhs(struct formula *p, struct proof *q) {
-    /* If q is proved, then p v q is proved, for any p. */
+disj_intro_lhs(struct formula *fx, struct proof *y) {
+    /* If y is proved, then x v y is proved, for any x. */
     return mk_proof(
-        q->assumptions,
-        disj(p, q->conclusion)
+        y->assumptions,
+        disj(fx, y->conclusion)
     );
 }
 
 struct proof *
-disj_intro_rhs(struct proof *p, struct formula *q) {
-    /* If p is proved, then p v q is proved, for any q. */
+disj_intro_rhs(struct proof *x, struct formula *fy) {
+    /* If x is proved, then x v y is proved, for any y. */
     return mk_proof(
-        p->assumptions,
-        disj(p->conclusion, q)
+        x->assumptions,
+        disj(x->conclusion, fy)
     );
 }
 
 struct proof *
-disj_elim(struct proof *r, struct proof *s, int label1, struct proof *t, int label2) {
-    /* If r is proved, and under the assumption labelled "1" s is proved, and under
-       the assumption labelled "2" t is proved, and s concludes the same as t,
-       and r is proved and r is in the form "1" v "2", then s is proved. */
+disj_elim(struct proof *z, struct proof *x, int label1, struct proof *y, int label2) {
+    /* If z is proved, and under the assumption labelled "1" x is proved, and under
+       the assumption labelled "2" y is proved, and x concludes the same as y,
+       and z is proved and z is in the form "1" v "2", then x is proved. */
     struct formula *f1, *f2;
-    struct assumptions *a_s, *a_t;
+    struct assumptions *a_x, *a_y;
 
-    assert(r->conclusion->type == DISJ, "disj_elim: not a disjunction");
+    assert(z->conclusion->type == DISJ, "disj_elim: not a disjunction");
 
-    f1 = lookup(label1, s->assumptions);
-    a_s = discharge(label1, s->assumptions);
+    f1 = lookup(label1, x->assumptions);
+    a_x = discharge(label1, x->assumptions);
 
-    f2 = lookup(label2, t->assumptions);
-    a_t = discharge(label2, t->assumptions);
+    f2 = lookup(label2, y->assumptions);
+    a_y = discharge(label2, y->assumptions);
 
-    assert(formula_eq(s->conclusion, t->conclusion), "disj_elim: mismatched conclusions");
-    assert(formula_eq(r->conclusion->lhs, f1), "disj_elim: mismatched assumption on lhs");
-    assert(formula_eq(r->conclusion->rhs, f2), "disj_elim: mismatched assumption on rhs");
+    assert(formula_eq(x->conclusion, y->conclusion), "disj_elim: mismatched conclusions");
+    assert(formula_eq(z->conclusion->lhs, f1), "disj_elim: mismatched assumption on lhs");
+    assert(formula_eq(z->conclusion->rhs, f2), "disj_elim: mismatched assumption on rhs");
 
     return mk_proof(
-        merge(r->assumptions, merge(a_s, a_t)),
-        s->conclusion
+        merge(z->assumptions, merge(a_x, a_y)),
+        x->conclusion
     );
 }
 
 struct proof *
-neg_intro(int label, struct proof *p)
+neg_intro(int label, struct proof *x)
 {
-    /* If absurdum is proved under the assumption q, then not-q is proved. */
-    struct formula *f = lookup(label, p->assumptions);
-    struct assumptions *a = discharge(label, p->assumptions);
-    assert(p->conclusion->type == ABSR, "neg_intro: not absurdum");
+    /* If x is absurdum and x is proved under the assumption y, then not-y is proved. */
+    struct formula *f = lookup(label, x->assumptions);
+    struct assumptions *a = discharge(label, x->assumptions);
+    assert(x->conclusion->type == ABSR, "neg_intro: not absurdum");
 #ifdef DEBUG
     if (f == NULL) {
         fprintf(stdout, "Label %d not found in:", label);
@@ -180,23 +180,26 @@ neg_intro(int label, struct proof *p)
 }
 
 struct proof *
-neg_elim(struct proof *p, struct proof *q)
+neg_elim(struct proof *x, struct proof *y)
 {
-    assert(q->conclusion->type == NEG, "neg_elim: not a negation");
-    assert(formula_eq(p->conclusion, q->conclusion->rhs), "neg_elim: mismatched conclusions");
+    /* If x has the form z and x is proved, and y has the form not-z and y is proved,
+       then absurdum is proved. */
+    assert(y->conclusion->type == NEG, "neg_elim: not a negation");
+    assert(formula_eq(x->conclusion, y->conclusion->rhs), "neg_elim: mismatched conclusions");
     return mk_proof(
-        merge(p->assumptions, q->assumptions),
+        merge(x->assumptions, y->assumptions),
         absr()
     );
 }
 
 struct proof *
-absr_elim(struct proof *r, struct formula *q)
+absr_elim(struct proof *x, struct formula *fy)
 {
-    assert(r->conclusion->type == ABSR, "absr_elim: not absurdum");
+    /* If x is absurdum and x is proved, then y is proved for any y. */
+    assert(x->conclusion->type == ABSR, "absr_elim: not absurdum");
     return mk_proof(
-        r->assumptions,
-        q
+        x->assumptions,
+        fy
     );
 }
 

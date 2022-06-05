@@ -82,7 +82,7 @@ Progress
 - [x] demo bad proof (ought to really be a number of these)
 - [x] debug flag for (or debug version of) `build-proof.sh`
 
-- [ ] Use some names other than p, q, etc for struct proof type args
+- [x] Use some names other than p, q, etc for struct proof type args
 
 - [x] Absurdum value
 - [x] absr_elim: if absurdum is proved, then anything is proved (absr |- phi)
