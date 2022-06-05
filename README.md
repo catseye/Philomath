@@ -58,42 +58,14 @@ the following things, it is possible it is no longer a valid proof:
 Fortunately, it is possible to statically analyze a C source file and confirm
 that it does none of these things, if such a level of assurance is desired.
 
-Progress
---------
+TODO
+----
 
-- [x] assert()
-- [x] proves()
+Should really have more demo non-proofs, to check that it's not
+letting non-proofs pass themselves off as proofs.
 
-- [x] impl_intro
-- [x] demo proof showing impl_intro
-- [x] impl_elim
-- [x] demo proof showing impl_elim
-
-- [x] conj_intro
-- [x] demo proof showing conj_intro
-- [x] conj_elim
-- [x] demo proof showing conj_elim
-
-- [x] disj_intro
-- [x] demo proof showing disj_intro
-- [x] disj_elim
-- [x] demo proof showing disj_elim
-
-- [x] demo bad proof (ought to really be a number of these)
-- [x] debug flag for (or debug version of) `build-proof.sh`
-
-- [x] Use some names other than p, q, etc for struct proof type args
-
-- [x] Absurdum value
-- [x] absr_elim: if absurdum is proved, then anything is proved (absr |- phi)
-- [x] demo proof showing absr_elim
-- [x] neg_elim: if x is proved, and not x is proved, then absurdum is proved (phi, not phi |- absr)
-- [x] demo proof showing neg_elim
-- [x] neg_intro: if gamma, phi proves absurdum, then gamma proves not phi (gamma |- not phi, discharging gamma, phi)
-- [x] demo proof showing neg_intro
-
-- [x] double_neg_elim (for to support classical logic)
-- [x] demo proof showing double_neg_elim
+Could stand to have a real suite of unit tests instead of just
+a handful of demo proofs than you can build and run manually.
 
 [classical propositional logic]: https://iep.utm.edu/natural-deduction/#H4
 [Natural Deduction]: https://iep.utm.edu/natural-deduction/
