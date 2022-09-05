@@ -58,8 +58,8 @@ It is however possible to subvert this mechanism.  If your proof code does any o
 the following things, it is possible it is no longer a valid proof:
 
 *   includes the file `proof.c` directly, rather than including `proof.h`
-*   casts a `struct proof` value to some other type
-*   casts a value of some other type to a `struct proof`
+*   casts a `struct theorem` value to some other type
+*   casts a value of some other type to a `struct theorem`
 
 Fortunately, it is possible to statically analyze a C source file and confirm
 that it does none of these things, if such a level of assurance is desired.
