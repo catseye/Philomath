@@ -29,7 +29,7 @@ mk_theorem(struct assumptions *assumptions, struct formula *conclusion) {
 }
 
 int proves(struct theorem *t, struct formula *c) {
-    /* Asserts that the theorem p proves the formula c.  If it does,
+    /* Asserts that the theorem t proves the formula c.  If it does,
        a successful system exit code (i.e. 0) is returned, with
        which the process may exit. */
     assert(t->assumptions == NULL, "proves: proof contains undischarged assumptions");
