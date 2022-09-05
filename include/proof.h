@@ -5,30 +5,30 @@
 
 #include "formula.h"
 
-struct proof;
+struct theorem;
 
-int proves(struct proof *, struct formula *);
+int proves(struct theorem *, struct formula *);
 
-struct proof *suppose(struct formula *, int);
+struct theorem *suppose(struct formula *, int);
 
-struct proof *conj_intro(struct proof *, struct proof *);
-struct proof *conj_elim_lhs(struct proof *);
-struct proof *conj_elim_rhs(struct proof *);
+struct theorem *conj_intro(struct theorem *, struct theorem *);
+struct theorem *conj_elim_lhs(struct theorem *);
+struct theorem *conj_elim_rhs(struct theorem *);
 
-struct proof *impl_intro(int, struct proof *);
-struct proof *impl_elim(struct proof *, struct proof *);
+struct theorem *impl_intro(int, struct theorem *);
+struct theorem *impl_elim(struct theorem *, struct theorem *);
 
-struct proof *disj_intro_lhs(struct formula *, struct proof *);
-struct proof *disj_intro_rhs(struct proof *, struct formula *);
-struct proof *disj_elim(struct proof *, struct proof *, int, struct proof *, int);
+struct theorem *disj_intro_lhs(struct formula *, struct theorem *);
+struct theorem *disj_intro_rhs(struct theorem *, struct formula *);
+struct theorem *disj_elim(struct theorem *, struct theorem *, int, struct theorem *, int);
 
-struct proof *conj_elim_lhs(struct proof *);
-struct proof *conj_elim_rhs(struct proof *);
+struct theorem *conj_elim_lhs(struct theorem *);
+struct theorem *conj_elim_rhs(struct theorem *);
 
-struct proof *neg_intro(int, struct proof *);
-struct proof *neg_elim(struct proof *, struct proof *);
+struct theorem *neg_intro(int, struct theorem *);
+struct theorem *neg_elim(struct theorem *, struct theorem *);
 
-struct proof *absr_elim(struct proof *, struct formula *);
-struct proof *double_neg_elim(struct proof *);
+struct theorem *absr_elim(struct theorem *, struct formula *);
+struct theorem *double_neg_elim(struct theorem *);
 
 #endif /* ndef PROOF_H */
