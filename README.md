@@ -1,16 +1,16 @@
 Philomath
 =========
 
-_See also:_ [LCF-style-ND](https://github.com/cpressey/LCF-style-ND#readme)
-∘ [Maxixe](https://github.com/catseye/Maxixe#readme)
-∘ [Cardboard Prolog](https://github.com/catseye/Cardboard-Prolog#readme)
+_See also:_ [LCF-style-Natural-Deduction][]
+∘ [Maxixe](https://codeberg.org/catseye/Maxixe#maxixe)
+∘ [Cardboard Prolog](https://codeberg.org/catseye/Cardboard-Prolog#cardboard-prolog)
 
 - - - -
 
 **Philomath** is an LCF-style theorem prover written in ANSI C.  It implements
-[classical propositional logic] inside a [Natural Deduction] system with
+[classical propositional logic][] inside a [Natural Deduction][] system with
 labelled assumptions.  For more information on this approach, see the
-**[LCF-style-ND](https://github.com/cpressey/LCF-style-ND)** repository.
+**[LCF-style-Natural-Deduction][]** article.
 
 How do I write a proof with this?
 ---------------------------------
@@ -75,3 +75,4 @@ a handful of demo proofs than you can build and run manually.
 
 [classical propositional logic]: https://iep.utm.edu/natural-deduction/#H4
 [Natural Deduction]: https://iep.utm.edu/natural-deduction/
+[LCF-style-Natural-Deduction]: https://codeberg.org/catseye/The-Dossier/src/branch/master/article/LCF-style-Natural-Deduction/
