@@ -69,14 +69,6 @@ merge(struct assumptions *a, struct assumptions *b) {
     return c;
 }
 
-struct assumptions *
-assumptions_clone(struct assumptions *a) {
-    if (a == NULL) {
-        return NULL;
-    }
-    return assume(a->label, a->formula, assumptions_clone(a->next));
-}
-
 void
 assumptions_fprint(FILE *f, struct assumptions *a) {
     struct assumptions *k = a;
