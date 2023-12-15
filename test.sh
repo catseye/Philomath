@@ -1,6 +1,16 @@
-#!/bin/sh -e
+#!/bin/sh
 
-./build-proof.sh eg/demo-proof1 && eg/*.exe && rm eg/*.exe && echo "ok"
-./build-proof.sh eg/demo-proof2 && eg/*.exe && rm eg/*.exe && echo "ok"
-./build-proof.sh eg/demo-proof3 && eg/*.exe && rm eg/*.exe && echo "ok"
-# ./build-proof.sh eg/demo-nonproof1 && eg/*.exe && rm eg/*.exe && echo "ok"
+for PROOF in demo-proof1 demo-proof2 demo-proof3; do
+    rm -f eg/*.exe
+    ./build-proof.sh eg/$PROOF && eg/$PROOF.exe && echo "$PROOF ok"
+done
+
+for NONPROOF in demo-nonproof1; do
+    rm -f eg/*.exe
+    ./build-proof.sh eg/$NONPROOF
+    if eg/$NONPROOF.exe; then
+        echo "ERROR: nonproof $NONPROOF terminated with exit code 0"
+        exit 1
+    fi
+    echo "nonproof $NONPROOF ok"
+done
