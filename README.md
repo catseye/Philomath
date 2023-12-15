@@ -1,7 +1,7 @@
 Philomath
 =========
 
-_See also:_ [LCF-style-Natural-Deduction][]
+Version 1.1 | _See also:_ [LCF-style-Natural-Deduction][]
 ∘ [Maxixe](https://codeberg.org/catseye/Maxixe#maxixe)
 ∘ [Cardboard Prolog](https://codeberg.org/catseye/Cardboard-Prolog#cardboard-prolog)
 
@@ -67,8 +67,32 @@ that it does none of these things, if such a level of assurance is desired.
 TODO
 ----
 
-Should really have more demo non-proofs, to check that it's not
-letting non-proofs pass themselves off as proofs.
+Should really have even more demo non-proofs, to help ensure that it's not
+letting non-proofs pass themselves off as proofs somewhere.
+
+History
+-------
+
+### 1.1
+
+*   When creating a `struct theorem` or `struct assumptions`, the
+    supplied `struct formula *` is now cloned (deep-copied) before being
+    stored in the structure.  This prevents the theorem from being
+    manipulated after its creation by updating the contents of the
+    `struct formula *` that was used to create it.  Thanks to
+    [Proloy Mishra](https://github.com/pro465) for pointing out this
+    hole.
+*   More test cases, and a driver script (`test.sh`) to run the tests.
+*   Added this "History" section to the README.
+
+### 1.0-2022.0905
+
+*   Renamed `struct theorem` to `struct proof`, and `proof.{c,h}` to
+    `theorem.{c,h}` to better reflect what these objects are.
+
+### 1.0
+
+*   Initial release of Philomath.
 
 [classical propositional logic]: https://iep.utm.edu/natural-deduction/#H4
 [Natural Deduction]: https://iep.utm.edu/natural-deduction/
