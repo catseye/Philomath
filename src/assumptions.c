@@ -69,6 +69,11 @@ merge(struct assumptions *a, struct assumptions *b) {
     return c;
 }
 
+struct assumptions *
+assumptions_clone(struct assumptions *a) {
+    return a;  /* FIXME */
+}
+
 void
 assumptions_fprint(FILE *f, struct assumptions *a) {
     struct assumptions *k = a;

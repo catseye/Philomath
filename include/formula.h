@@ -27,7 +27,7 @@ struct formula *neg(struct formula *);
 struct formula *absr(void);
 
 int formula_eq(struct formula *, struct formula *);
-
+struct formula *formula_clone(struct formula *);
 void formula_fprint(FILE *, struct formula *);
 
 #endif /* ndef FORMULA_H */

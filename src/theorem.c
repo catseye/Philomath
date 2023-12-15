@@ -23,8 +23,8 @@ mk_theorem(struct assumptions *assumptions, struct formula *conclusion) {
     assumptions_fprint(stdout, assumptions);
     fprintf(stdout, "-----------------------------------------\n\n");
 #endif
-    t->assumptions = assumptions;
-    t->conclusion = conclusion;
+    t->assumptions = assumptions_clone(assumptions);
+    t->conclusion = formula_clone(conclusion);
     return t;
 }
 

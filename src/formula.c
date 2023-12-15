@@ -69,6 +69,11 @@ formula_eq(struct formula *a, struct formula *b) {
     return 0;
 }
 
+struct formula *
+formula_clone(struct formula *f) {
+    return f;  /* FIXME */
+}
+
 void
 formula_fprint(FILE *f, struct formula *a) {
     if (a == NULL) {
