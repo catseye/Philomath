@@ -8,7 +8,7 @@ struct assumptions *
 assume(int label, struct formula *formula, struct assumptions *next) {
     struct assumptions *a = malloc(sizeof(struct assumptions));
     a->label = label;
-    a->formula = formula;
+    a->formula = formula_clone(formula);
     a->next = next;
     return a;
 }
@@ -71,7 +71,10 @@ merge(struct assumptions *a, struct assumptions *b) {
 
 struct assumptions *
 assumptions_clone(struct assumptions *a) {
-    return a;  /* FIXME */
+    if (a == NULL) {
+        return NULL;
+    }
+    return assume(a->label, a->formula, assumptions_clone(a->next));
 }
 
 void

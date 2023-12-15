@@ -71,7 +71,12 @@ formula_eq(struct formula *a, struct formula *b) {
 
 struct formula *
 formula_clone(struct formula *f) {
-    return f;  /* FIXME */
+    if (f == NULL) {
+        return NULL;
+    }
+    return mk_formula(
+        f->type, f->name, formula_clone(f->lhs), formula_clone(f->rhs)
+    );
 }
 
 void
