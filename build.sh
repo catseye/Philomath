@@ -1,4 +1,4 @@
-#!/bin/sh -ex
+#!/bin/sh -e
 
 CC="gcc -ansi -pedantic"
 for MODULE in assert formula assumptions theorem; do

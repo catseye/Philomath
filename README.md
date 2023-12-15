@@ -70,9 +70,6 @@ TODO
 Should really have more demo non-proofs, to check that it's not
 letting non-proofs pass themselves off as proofs.
 
-Could stand to have a real suite of unit tests instead of just
-a handful of demo proofs than you can build and run manually.
-
 [classical propositional logic]: https://iep.utm.edu/natural-deduction/#H4
 [Natural Deduction]: https://iep.utm.edu/natural-deduction/
 [LCF-style-Natural-Deduction]: https://codeberg.org/catseye/The-Dossier/src/branch/master/article/LCF-style-Natural-Deduction/

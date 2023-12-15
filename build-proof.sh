@@ -1,4 +1,4 @@
-#!/bin/sh -ex
+#!/bin/sh -e
 
 CFLAGS=""
 if [ "x$1" = "x-D" ]; then
